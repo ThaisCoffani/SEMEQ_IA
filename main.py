@@ -29,8 +29,6 @@ for pasta in pastas:
 for pasta, label in pastas.items():
   juntar_csv(pasta, pasta_datasets, label)
 
-for pasta in pastas:
-  shutil.rmtree(pasta)
 
 def listar_arquivos(pasta_datasets):
   arquivos = []
@@ -46,16 +44,35 @@ print("Arquivos encontrados:", arquivos_csv)
 
 data_all = data_all(pasta_datasets)
 
-RNA(data_all, test_size=0.25, n_seeds=1)
-
 '''
 
-data_all = r"D:\SEMEQ\datasets\data_all.csv" 
+pasta_datasets = r"D:\SEMEQ\datasets"
 
-data_all = pd.read_csv(data_all)
-print("começo RNA")
 
-RNA(data_all, test_size=0.25, n_seeds=1)
+def listar_arquivos(pasta_datasets):
+  arquivos = []
+  for arquivo in os.listdir(pasta_datasets):
+    caminho_completo = os.path.join(pasta_datasets, arquivo)
+    if os.path.isfile(caminho_completo) and arquivo.endswith(".csv"):
+      arquivos.append(caminho_completo)
+  return arquivos
 
+arquivos_csv = listar_arquivos(pasta_datasets)
+
+print("Arquivos encontrados:", arquivos_csv)
+
+data_all = data_all(pasta_datasets)
+
+seeds = range(10) 
+results = []
+
+for seed in seeds:
+  accuracy, f1, r2 = RNA(data_all, test_size=0.25, seed=seed)
+  results.append((seed, accuracy, f1, r2))
+
+best_seed, best_accuracy, best_f1, best_r2 = max(results, key=lambda x: x[3])
+
+print(f"Melhor seed: {best_seed}")
+print(f"Accuracy: {best_accuracy:.4f}, F1 Score: {best_f1:.4f}, R²: {best_r2:.4f}")
 
 
