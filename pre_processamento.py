@@ -55,7 +55,7 @@ def juntar_csv(pasta, destino, label):
       except Exception as e:
         print(f"Erro ao ler o arquivo {arquivo}: {str(e)}")
     
-  data_csv['results'] = label
+  data_csv['results'] = int(label)
 
   if not os.path.exists(destino):
     os.makedirs(destino)

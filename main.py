@@ -4,7 +4,7 @@ import pandas as pd
 from pre_processamento import extrair_zip, verificar_csv, juntar_csv
 from RNA import data_all, RNA
 
-'''
+
 caminho_zip = r"D:\SEMEQ\archive.zip" 
 pasta_destino = r"D:\SEMEQ\extracted" 
 
@@ -44,24 +44,8 @@ print("Arquivos encontrados:", arquivos_csv)
 
 data_all = data_all(pasta_datasets)
 
-'''
-
-pasta_datasets = r"D:\SEMEQ\datasets"
-
-
-def listar_arquivos(pasta_datasets):
-  arquivos = []
-  for arquivo in os.listdir(pasta_datasets):
-    caminho_completo = os.path.join(pasta_datasets, arquivo)
-    if os.path.isfile(caminho_completo) and arquivo.endswith(".csv"):
-      arquivos.append(caminho_completo)
-  return arquivos
-
-arquivos_csv = listar_arquivos(pasta_datasets)
-
-print("Arquivos encontrados:", arquivos_csv)
-
-data_all = data_all(pasta_datasets)
+print("Tipos de dados de cada coluna:")
+print(data_all.dtypes)
 
 seeds = range(10) 
 results = []

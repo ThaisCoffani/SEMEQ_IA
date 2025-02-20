@@ -8,7 +8,7 @@ import pandas as pd
 import os
 from fpdf import FPDF
 
-'''
+
 # No primeiro momento utilizei essa função para a diminuição do dataset
 
 def data_all(pasta_datasets):
@@ -17,13 +17,11 @@ def data_all(pasta_datasets):
   dataframes = []
 
   for arquivo in arquivos_csv:
-    df = pd.read_csv(arquivo, dtype='float32') 
+    df = pd.read_csv(arquivo) 
     df_amostrado = df.sample(frac=0.1, random_state=42) 
     dataframes.append(df_amostrado)
 
   data = pd.concat(dataframes, ignore_index=True)
-
-  data = data.astype('float32')
 
   os.makedirs("datasets", exist_ok=True)
 
@@ -32,9 +30,9 @@ def data_all(pasta_datasets):
   print(f"Arquivo final salvo: {caminho_saida}")
 
   return data
-'''
 
-# Down Sampling
+'''
+# Down Sampling -> Rodou mais de 3h e não funcionou
 
 def data_all(pasta_datasets):
   arquivos_csv = [os.path.join(pasta_datasets, arquivo) for arquivo in os.listdir(pasta_datasets) if arquivo.endswith(".csv")]
@@ -66,7 +64,7 @@ def data_all(pasta_datasets):
   print(f"Arquivo final salvo: {caminho_saida}")
 
   return data
-
+'''
 
 
 def RNA(data, test_size=0.25, seed=42):
@@ -85,6 +83,7 @@ def RNA(data, test_size=0.25, seed=42):
   model.fit(X_train, y_train, epochs=10, batch_size=200, verbose=1)
     
   y_pred = model.predict(X_test)
+  y_pred = (y_pred > 0.5).astype(int)
     
   accuracy = accuracy_score(y_test, y_pred.round())   
   f1 = f1_score(y_test, y_pred.round(), average='weighted')
