@@ -86,8 +86,6 @@ Otimizador: Adam.
 - Implementar validação cruzada para avaliar melhor a generalização do modelo.
 - Aumentar o número de seeds
 
-### Geração de Relatório:
-- Um arquivo PDF (resultados_rna.pdf) é gerado com os melhores resultados encontrados (acurácia, F1 Score e R²).
 
 ## main.py
 No main.py, os caminhos dos arquivos são configurados para um ambiente específico. É importante que o usuário altere esses caminhos para refletir a estrutura de diretórios do seu próprio sistema. Por exemplo:
@@ -96,3 +94,46 @@ No main.py, os caminhos dos arquivos são configurados para um ambiente específ
 - pasta_destino: Deve ser uma pasta onde os arquivos extraídos serão salvos.
 - pastas: Contém os caminhos para as subpastas do dataset extraído, onde cada pasta corresponde a um tipo de falha ou condição normal.
 - pasta_datasets: Pasta onde os datasets processados serão salvos.
+
+
+###################################################################################
+
+# Como Rodar o Código
+
+1) Baixe o dataset -> (https://www.kaggle.com/datasets/uysalserkan/fault-induction-motordataset/data)
+
+2. Configure os Caminhos
+
+No arquivo main.py, ajuste os caminhos conforme necessário:
+
+```
+caminho_zip = r"D:\SEMEQ\archive.zip"
+pasta_destino = r"D:\SEMEQ\extracted"
+
+pastas = {
+  r"D:\SEMEQ\extracted\imbalance\imbalance\6g": 0,
+  r"D:\SEMEQ\extracted\imbalance\imbalance\10g": 0,
+  r"D:\SEMEQ\extracted\imbalance\imbalance\15g": 0,
+  r"D:\SEMEQ\extracted\imbalance\imbalance\20g": 0,
+  r"D:\SEMEQ\extracted\imbalance\imbalance\25g": 0,
+  r"D:\SEMEQ\extracted\imbalance\imbalance\30g": 0,
+  r"D:\SEMEQ\extracted\imbalance\imbalance\35g": 0,
+  r"D:\SEMEQ\extracted\normal\normal": 1
+}
+
+pasta_datasets = r"D:\SEMEQ\datasets"
+```
+
+3. Instale as Dependências
+
+Antes de rodar o código, instale os pacotes necessários executando:
+
+``` pip install -r requirements.txt ```
+
+4. Execute o Código
+
+Após a instalação das dependências, execute o script principal:
+
+``` python3 main.py ```
+
+Isso processará os dados e salvará os resultados na pasta especificada.
